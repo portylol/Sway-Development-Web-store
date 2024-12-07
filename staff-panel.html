@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Staff Panel</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+        }
+        header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+        }
+        .container {
+            padding: 20px;
+        }
+        .card {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .card h3 {
+            margin-top: 0;
+        }
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            text-align: center;
+            background-color: #2196F3;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background-color: #1976D2;
+        }
+        .logout-btn {
+            background-color: #f44336;
+        }
+        .logout-btn:hover {
+            background-color: #d32f2f;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Staff Panel</h1>
+    </header>
+    <div class="container">
+        <div class="card">
+            <h3>Welcome, Staff Member</h3>
+            <p>Select an action below to manage the webstore.</p>
+        </div>
+        <div class="card">
+            <button class="btn" onclick="navigateTo('add-resource.html')">Add New Resource</button>
+            <button class="btn" onclick="navigateTo('view-accounts.html')">View All Accounts</button>
+            <button class="btn" onclick="navigateTo('ban-user.html')">Ban User</button>
+            <button class="btn" onclick="navigateTo('change-password.html')">Change User Password</button>
+            <button class="btn" onclick="navigateTo('resource-stats.html')">View Resource Statistics</button>
+        </div>
+        <button class="btn logout-btn" onclick="logout()">Logout</button>
+    </div>
+    <script>
+        function navigateTo(page) {
+            window.location.href = page;
+        }
+        function logout() {
+            window.location.href = "index.html";
+        }
+    </script>
+</body>
+</html>
