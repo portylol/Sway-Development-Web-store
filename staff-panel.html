@@ -17,25 +17,58 @@
             padding: 10px 20px;
             text-align: center;
         }
-        .container {
+        .tabs {
+            display: flex;
+            justify-content: center;
+            background-color: #4CAF50;
+        }
+        .tab {
+            flex: 1;
+            padding: 10px;
+            text-align: center;
+            cursor: pointer;
+            color: white;
+            border-bottom: 3px solid transparent;
+        }
+        .tab:hover, .tab.active {
+            border-bottom: 3px solid #FFEB3B;
+        }
+        .content {
+            display: none;
             padding: 20px;
         }
-        .card {
-            background: white;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            padding: 20px;
-            margin-bottom: 20px;
-        }
-        .card h3 {
-            margin-top: 0;
-        }
-        .btn {
+        .content.active {
             display: block;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .form-group input, .form-group textarea, .form-group select {
             width: 100%;
             padding: 10px;
-            margin: 10px 0;
-            text-align: center;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        table th, table td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+        table th {
+            background-color: #4CAF50;
+            color: white;
+        }
+        .btn {
+            padding: 10px 20px;
             background-color: #2196F3;
             color: white;
             border: none;
@@ -57,23 +90,103 @@
     <header>
         <h1>Staff Panel</h1>
     </header>
-    <div class="container">
-        <div class="card">
-            <h3>Welcome, Staff Member</h3>
-            <p>Select an action below to manage the webstore.</p>
-        </div>
-        <div class="card">
-            <button class="btn" onclick="navigateTo('add-resource.html')">Add New Resource</button>
-            <button class="btn" onclick="navigateTo('view-accounts.html')">View All Accounts</button>
-            <button class="btn" onclick="navigateTo('ban-user.html')">Ban User</button>
-            <button class="btn" onclick="navigateTo('change-password.html')">Change User Password</button>
-            <button class="btn" onclick="navigateTo('resource-stats.html')">View Resource Statistics</button>
-        </div>
-        <button class="btn logout-btn" onclick="logout()">Logout</button>
+    <div class="tabs">
+        <div class="tab active" onclick="showTab('add-resource')">Add Resource</div>
+        <div class="tab" onclick="showTab('view-accounts')">View Accounts</div>
+        <div class="tab" onclick="showTab('ban-user')">Ban User</div>
+        <div class="tab" onclick="showTab('change-password')">Change Password</div>
+        <div class="tab" onclick="showTab('stats')">Resource Stats</div>
     </div>
+    <div id="add-resource" class="content active">
+        <h2>Add Resource</h2>
+        <form>
+            <div class="form-group">
+                <label for="resource-name">Name:</label>
+                <input type="text" id="resource-name" required>
+            </div>
+            <div class="form-group">
+                <label for="description">Description:</label>
+                <textarea id="description" rows="4" required></textarea>
+            </div>
+            <div class="form-group">
+                <label for="payment-option">Payment Option:</label>
+                <select id="payment-option" required>
+                    <option value="lifetime">Lifetime</option>
+                    <option value="monthly">Monthly</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="image-url">Image URL:</label>
+                <input type="url" id="image-url" required>
+            </div>
+            <div class="form-group">
+                <label for="author">Author:</label>
+                <input type="text" id="author" required>
+            </div>
+            <div class="form-group">
+                <label for="key-locked">Key Locked:</label>
+                <select id="key-locked" required>
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
+                </select>
+            </div>
+            <button type="submit" class="btn">Add Resource</button>
+        </form>
+    </div>
+    <div id="view-accounts" class="content">
+        <h2>View Accounts</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Username</th>
+                    <th>Email</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>ExampleUser</td>
+                    <td>example@example.com</td>
+                    <td><button class="btn">View</button></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div id="ban-user" class="content">
+        <h2>Ban User</h2>
+        <form>
+            <div class="form-group">
+                <label for="ban-username">Username:</label>
+                <input type="text" id="ban-username" required>
+            </div>
+            <button type="submit" class="btn">Ban User</button>
+        </form>
+    </div>
+    <div id="change-password" class="content">
+        <h2>Change Password</h2>
+        <form>
+            <div class="form-group">
+                <label for="username-password">Username:</label>
+                <input type="text" id="username-password" required>
+            </div>
+            <div class="form-group">
+                <label for="new-password">New Password:</label>
+                <input type="password" id="new-password" required>
+            </div>
+            <button type="submit" class="btn">Change Password</button>
+        </form>
+    </div>
+    <div id="stats" class="content">
+        <h2>Resource Stats</h2>
+        <p>Display resource statistics here.</p>
+    </div>
+    <button class="btn logout-btn" onclick="logout()">Logout</button>
     <script>
-        function navigateTo(page) {
-            window.location.href = page;
+        function showTab(tabId) {
+            document.querySelectorAll('.content').forEach(content => content.classList.remove('active'));
+            document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
+            document.getElementById(tabId).classList.add('active');
+            document.querySelector(`.tab[onclick="showTab('${tabId}')"]`).classList.add('active');
         }
         function logout() {
             window.location.href = "index.html";
